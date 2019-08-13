@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cars.css'
+import './Cars.scss'
 
 export default ({name, year, onChangeName, onDelete}) => {
   const inputClasses = ['input']

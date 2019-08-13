@@ -11,26 +11,57 @@ class App extends Component {
       {name: 'Mazda', year: 2018},
       {name: 'Ford', year: 2019}
     ],
-    pageTitle: 'React components'
+    pageTitle: 'React components',
+    showCars: false
   }
 
-  onChangeTitle = () => {
-    console.log('click')
+  toggleCarsHandler = () => {
+    this.setState({
+      showCars: !this.state.showCars
+    })
   }
+
+  onChangeName = (name, index) => {
+    const car = this.state.cars[index]
+    car.name = name
+    const cars = [...this.state.cars]
+    cars[index] = car
+    this.setState({cars})
+  }
+
+  deleteHandler = (index) => {
+    const cars = [...this.state.cars]
+    cars.splice(index, 1)
+
+    this.setState({cars})
+  }
+
 
   render() {
-
-    const cars = this.state.cars
 
     return (
       <div className="App">
         <h1>{this.state.pageTitle}</h1>
 
-        <button onClick={this.onChangeTitle}>Click me</button>
+        <button 
+          onClick={this.toggleCarsHandler}>
+            Toggle show
+        </button>
 
-        <Car name={cars[0].name} year={cars[0].year} />
-        <Car name={cars[1].name} year={cars[1].year} />
-        <Car name={cars[2].name} year={cars[2].year} />
+        { this.state.showCars ?
+            this.state.cars.map((car, index) => {
+              return (
+                <Car 
+                  key={index}
+                  name={car.name}
+                  year={car.year}
+                  onDelete={this.deleteHandler}
+                  onChangeName={(e) => this.onChangeName(e.target.value, index)}
+                />
+              )
+            })
+          : null
+        }
       </div>
     );
   }

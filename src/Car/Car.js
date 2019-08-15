@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Cars.scss'
 
-export default ({name, year, onChangeName, onDelete}) => {
-  const inputClasses = ['input']
 
-  if (name !== '') {
-    inputClasses.push('green')
-  } else {
-    inputClasses.push('red')
+
+export default class Car extends Component {
+
+  render() {
+    const inputClasses = ['input']
+
+    if (this.props.name !== '') {
+      inputClasses.push('green')
+    } else {
+      inputClasses.push('red')
+    }
+
+    if (this.props.name.length > 4) {
+      inputClasses.push('bold')
+    }
+
+    return (
+      <div className="Car">
+        <h3>Car name: {this.props.name}</h3>
+        <p>Year: <strong>{this.props.year}</strong></p>
+        <input 
+          type="text" 
+          onChange={this.props.onChangeName} 
+          value={this.props.name}
+          className={inputClasses.join(' ')} />
+        <button onClick={this.props.onDelete}>Delete</button>
+      </div>
+    )
   }
-
-  if (name.length > 4) {
-    inputClasses.push('bold')
-  }
-
-  return (
-    <div className="Car">
-      <h3>Car name: {name}</h3>
-      <p>Year: <strong>{year}</strong></p>
-      <input 
-        type="text" 
-        onChange={onChangeName} 
-        value={name}
-        className={inputClasses.join(' ')} />
-      <button onClick={onDelete}>Delete</button>
-    </div>
-  )
 }
+

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Aux from '../hoc/Auxo'
+import withClass from '../hoc/withClass'
 
-export default class Counter extends Component {
+class Counter extends Component {
 
   state = {
     counter: 0
@@ -35,3 +36,5 @@ export default class Counter extends Component {
     )
   }
 }
+
+export default withClass(Counter, 'Car')

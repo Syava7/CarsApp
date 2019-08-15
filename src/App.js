@@ -4,16 +4,18 @@ import './App.css';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js'
 import Counter from './Counter/Counter'
 
+export const ClickedContext = React.createContext(false)
 class App extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
+      clicked: false,
       cars: [
         {name: 'Audi', year: 2020},
-        // {name: 'Mazda', year: 2018},
-        // {name: 'Ford', year: 2019}
+        {name: 'Mazda', year: 2018},
+        {name: 'Ford', year: 2019}
       ],
       pageTitle: 'React components',
       showCars: false
@@ -47,13 +49,16 @@ class App extends Component {
       <div className="App">
         {/* <h1>{this.state.pageTitle}</h1> */}
         <h1>{this.props.title}</h1>
-
-        <Counter />
+        <ClickedContext.Provider value={this.state.clicked}>
+          <Counter />
+        </ClickedContext.Provider>
 
         <button 
           onClick={this.toggleCarsHandler}>
             Toggle show
         </button>
+
+        <button onClick={() => this.setState({clicked: true})}>Change click</button>
 
         { this.state.showCars ?
             this.state.cars.map((car, index) => {
@@ -62,6 +67,7 @@ class App extends Component {
                   <Car 
                     name={car.name}
                     year={car.year}
+                    index={index}
                     onDelete={this.deleteHandler}
                     onChangeName={(e) => this.onChangeName(e.target.value, index)}
                   />

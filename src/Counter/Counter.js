@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Aux from '../hoc/Auxo'
 import withClass from '../hoc/withClass'
+import Counter2 from '../Counter2/Counter2'
 
 class Counter extends Component {
 
@@ -24,6 +25,7 @@ class Counter extends Component {
     return (
       <Aux>
         <h2>Counter {this.state.counter}</h2>
+        <Counter2 />
         <button 
           onClick={this.addCounter}>
           +
